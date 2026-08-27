@@ -11,6 +11,15 @@ const navItems = [
   ['Contact', '#contact'],
 ];
 
+const searchSections = [
+  { label: 'Home', href: '#home', terms: 'home managed it technology support business' },
+  { label: 'About', href: '#about', terms: 'about mission experience company team expertise' },
+  { label: 'Services', href: '#services', terms: 'services helpdesk server office 365 firewall cloud security pricing' },
+  { label: 'Projects', href: '#projects', terms: 'projects portfolio cloud infrastructure cybersecurity modernization migration' },
+  { label: 'Team', href: '#team', terms: 'team leadership people michael sarah david lisa' },
+  { label: 'Contact', href: '#contact', terms: 'contact email phone message consultation support address' },
+];
+
 const benefits = ['24/7 Support', '99.9% Uptime', 'Cloud Migration', 'Security First'];
 
 const missionPoints = [
@@ -136,8 +145,34 @@ const team = [
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchMessage, setSearchMessage] = useState('');
   const [selectedService, setSelectedService] = useState('General inquiry');
   const [formSent, setFormSent] = useState(false);
+
+  function handleSiteSearch(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const query = searchQuery.trim().toLowerCase();
+
+    if (!query) {
+      setSearchMessage('Enter a section or service to search.');
+      return;
+    }
+
+    const match = searchSections.find(({ label, terms }) =>
+      `${label} ${terms}`.toLowerCase().includes(query),
+    );
+
+    if (!match) {
+      setSearchMessage('No match found. Try Services, Projects, Team, or Contact.');
+      return;
+    }
+
+    document.querySelector(match.href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.history.replaceState(null, '', match.href);
+    setSearchMessage(`Showing ${match.label}.`);
+  }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -161,8 +196,46 @@ export default function Home() {
           </nav>
 
           <div className="header-actions" aria-label="Site tools">
-            <a className="icon-button desktop-only" href="#services" aria-label="Browse services">⌕</a>
-            <a className="icon-button desktop-only" href="#contact" aria-label="Contact our team">♙</a>
+            <form className="header-search desktop-only" role="search" onSubmit={handleSiteSearch}>
+              <label className="sr-only" htmlFor="site-search">Search this website</label>
+              <input
+                id="site-search"
+                type="search"
+                placeholder="Search site"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+              />
+              <button className="search-submit" type="submit" aria-label="Search" />
+              <p className="sr-only" id="site-search-status" role="status" aria-live="polite">
+                {searchMessage}
+              </p>
+            </form>
+
+            <div className="login-action">
+              <button
+                className={loginOpen ? 'login-button is-active' : 'login-button'}
+                type="button"
+                aria-label="Client login"
+                aria-expanded={loginOpen}
+                aria-controls="client-login-menu"
+                title="Client login"
+                onClick={() => setLoginOpen((open) => !open)}
+              >
+                <span className="login-glyph" aria-hidden="true" />
+              </button>
+
+              {loginOpen && (
+                <div className="login-popover" id="client-login-menu" role="dialog" aria-label="Client login">
+                  <span className="login-kicker">Client access</span>
+                  <strong>Portal login</strong>
+                  <p>Your secure client portal is being prepared. Contact support to request access.</p>
+                  <a href="mailto:support@jectechnologies.com?subject=Client%20portal%20access">
+                    Request access <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              )}
+            </div>
+
             <button
               className="menu-button"
               aria-label="Toggle menu"
