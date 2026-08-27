@@ -2,8 +2,8 @@
 /node_modules
 /.pnp
 .pnp.*
-.openai
-.gitignore
+# OpenAI Sites local hosting metadata
+/.openai/
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
