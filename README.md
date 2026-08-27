@@ -2,10 +2,6 @@
 
 A responsive technology and managed-services company website built with React, Next.js-compatible routing, and Vinext. The site includes Home, About, Services, Projects, Team, and Contact sections.
 
-## Live website
-
-[View the deployed website](https://jec-technologies.h4techdev.chatgpt.site)
-
 ## Requirements
 
 - Node.js 22.13.0 or newer
