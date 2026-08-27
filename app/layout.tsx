@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
+  metadataBase: new URL('https://jec-technologies.h4techdev.chatgpt.site'),
   title: 'JEC Technologies | Managed IT Services',
   description:
     'Reliable managed IT, cloud, cybersecurity, and helpdesk services for growing businesses.',
