@@ -6,6 +6,7 @@ const navItems = [
   ['Home', '#home'],
   ['About', '#about'],
   ['Services', '#services'],
+  ['Projects', '#projects'],
   ['Team', '#team'],
   ['Contact', '#contact'],
 ];
@@ -79,6 +80,30 @@ const services = [
     price: 'Starting at $199/month',
     description: 'Enterprise-grade firewall management and network security monitoring to protect your business.',
     features: ['Firewall Configuration', 'Threat Monitoring', 'VPN Management', 'Security Reporting'],
+  },
+];
+
+const projects = [
+  {
+    index: '01',
+    category: 'Cloud Infrastructure',
+    title: 'Global Workspace Modernization',
+    description: 'A secure Microsoft 365 migration and identity rollout designed for a distributed 320-person organization.',
+    result: 'Zero-downtime rollout',
+  },
+  {
+    index: '02',
+    category: 'Cybersecurity',
+    title: 'Managed Security Transformation',
+    description: 'Centralized threat monitoring, firewall management, and automated incident response across 14 locations.',
+    result: '24/7 threat visibility',
+  },
+  {
+    index: '03',
+    category: 'Server Management',
+    title: 'Hybrid Infrastructure Upgrade',
+    description: 'Modernized aging servers with resilient cloud backups, proactive monitoring, and a tested recovery plan.',
+    result: '99.9% service uptime',
   },
 ];
 
@@ -281,6 +306,38 @@ export default function Home() {
               <p>Let&apos;s discuss how our MSP services can streamline your operations, reduce costs, and improve productivity.</p>
             </div>
             <a className="button button-primary" href="#contact">Get Free Consultation</a>
+          </div>
+        </div>
+      </section>
+
+      <section className="section projects-section" id="projects">
+        <div className="container">
+          <div className="section-heading projects-heading">
+            <p className="section-kicker">Work in action</p>
+            <h2>Selected Projects</h2>
+            <p>
+              A snapshot of the infrastructure, security, and cloud transformation work
+              we deliver for growing organizations.
+            </p>
+          </div>
+
+          <div className="projects-grid">
+            {projects.map((project) => (
+              <article className="project-card" key={project.title}>
+                <div className="project-card-top">
+                  <span className="project-index">{project.index}</span>
+                  <span className="project-category">{project.category}</span>
+                </div>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <div className="project-result"><span>✓</span>{project.result}</div>
+              </article>
+            ))}
+          </div>
+
+          <div className="projects-cta">
+            <p>Have a technology project in mind?</p>
+            <a className="button button-primary" href="#contact">Plan Your Project</a>
           </div>
         </div>
       </section>
